@@ -1,4 +1,5 @@
 import FaqSection from "@/components/home/faq/FaqSection";
+import ConnectWithUs from "@/components/home/sections/ConnectWithUs";
 import ExclusiveOffersSection from "@/components/home/sections/exclusiveOffersSection";
 import HeroSection from "@/components/home/sections/heroSection/heroSection";
 import TestimonialsSection from "@/components/home/sections/Testimonial";
@@ -13,6 +14,7 @@ export default function Home() {
       <ExclusiveOffersSection />
       <TestimonialsSection />
       <FaqSection />
+      <ConnectWithUs />
     </>
   );
 }
