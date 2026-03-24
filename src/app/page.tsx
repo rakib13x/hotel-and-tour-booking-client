@@ -1,3 +1,4 @@
+import FaqSection from "@/components/home/faq/FaqSection";
 import ExclusiveOffersSection from "@/components/home/sections/exclusiveOffersSection";
 import HeroSection from "@/components/home/sections/heroSection/heroSection";
 import TestimonialsSection from "@/components/home/sections/Testimonial";
@@ -11,6 +12,7 @@ export default function Home() {
       <TopDestinationsSection />
       <ExclusiveOffersSection />
       <TestimonialsSection />
+      <FaqSection />
     </>
   );
 }
