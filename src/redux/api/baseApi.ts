@@ -9,7 +9,6 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 import { toast } from "sonner";
-";
 import { RootState } from "../store";
 import { logout, setToken } from "../authSlice";
 
