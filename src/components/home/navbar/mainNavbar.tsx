@@ -1,12 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -22,7 +16,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import MobileNavbar from "./mobileNavbar";
 import Image from "next/image";
-import logo from "../../../../public/logo/logo.jpg"
+import logo from "../../../../public/logo/logo.jpg";
 import { TUser } from "@/types";
 
 interface MainNavbarProps {
@@ -90,33 +84,27 @@ export default function MainNavbar({
           isScrolled ? "bg-primary/95 backdrop-blur-sm" : "bg-primary"
         }`}
       >
-        <div className="
-         max-w-7xl mx-auto px-4">
+        <div className="mx-auto max-w-7xl px-4">
           <div className="flex items-center justify-between py-4">
             {/* Navigation Links */}
             <nav className="flex flex-grow items-center space-x-8">
               <Link href="/" className="group">
-            
-            
-              <Image
-                src={logo}
-                alt={
-                   "Gateway Holidays Logo"
-                }
-                width={65}
-                height={65}
-                className="object-contain transition-all duration-300"
-                priority
-                placeholder={isLoading ? "blur" : "empty"}
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                onError={(e) => {
-                  // Fallback to default logo if image fails to load
-                  const target = e.target as HTMLImageElement;
-                  target.src = logo.src;
-                }}
-              />
-            
-          </Link>
+                <Image
+                  src={logo}
+                  alt={"Gateway Holidays Logo"}
+                  width={65}
+                  height={65}
+                  className="object-contain transition-all duration-300"
+                  priority
+                  placeholder={isLoading ? "blur" : "empty"}
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  onError={(e) => {
+                    // Fallback to default logo if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.src = logo.src;
+                  }}
+                />
+              </Link>
               {navigationLinks.map((link) => (
                 <div key={link.label} className="dropdown-container relative">
                   {link.hasDropdown ? (
@@ -217,18 +205,25 @@ export default function MainNavbar({
                   <DropdownMenuTrigger asChild>
                     <button className="focus:outline-none">
                       <Avatar className="h-10 w-10 border-2 border-white transition-all hover:scale-105">
-                        <AvatarImage src={user?.profileImg} alt={user?.name || "User"} />
+                        <AvatarImage
+                          src={user?.profileImg}
+                          alt={user?.name || "User"}
+                        />
                         <AvatarFallback className="bg-accent text-white">
-                          {user?.name?.charAt(0).toUpperCase() || <UserIcon className="h-5 w-5" />}
+                          {user?.name?.charAt(0).toUpperCase() || (
+                            <UserIcon className="h-5 w-5" />
+                          )}
                         </AvatarFallback>
                       </Avatar>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 mt-1">
+                  <DropdownMenuContent align="end" className="mt-1 w-56">
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{user?.name}</p>
-                        <p className="text-xs leading-none text-muted-foreground">
+                        <p className="text-sm leading-none font-medium">
+                          {user?.name}
+                        </p>
+                        <p className="text-muted-foreground text-xs leading-none">
                           {user?.email}
                         </p>
                       </div>
@@ -241,7 +236,7 @@ export default function MainNavbar({
                             ? "/dashboard/admin"
                             : "/dashboard/user"
                         }
-                        className="cursor-pointer flex items-center"
+                        className="flex cursor-pointer items-center"
                       >
                         <LayoutDashboard className="mr-2 h-4 w-4" />
                         <span>
@@ -253,7 +248,7 @@ export default function MainNavbar({
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+                      className="cursor-pointer text-red-600 focus:bg-red-50 focus:text-red-600"
                       onClick={handleLogout}
                       disabled={isLoading}
                     >

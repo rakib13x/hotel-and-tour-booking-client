@@ -1,5 +1,6 @@
 "use client";
 
+import { Navbar } from "@/components/home";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -400,9 +401,9 @@ function CountryPackagesContent() {
           (filterCountry) =>
             country.name.toLowerCase().includes(filterCountry.toLowerCase()) ||
             country.popularDestinations.some((dest) =>
-              dest.toLowerCase().includes(filterCountry.toLowerCase()),
-            ),
-        ),
+              dest.toLowerCase().includes(filterCountry.toLowerCase())
+            )
+        )
       );
     }
 
@@ -412,8 +413,8 @@ function CountryPackagesContent() {
         (country) =>
           country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           country.popularDestinations.some((dest) =>
-            dest.toLowerCase().includes(searchTerm.toLowerCase()),
-          ),
+            dest.toLowerCase().includes(searchTerm.toLowerCase())
+          )
       );
     }
 

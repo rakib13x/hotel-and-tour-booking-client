@@ -1,3 +1,4 @@
+import { companyInfo as staticCompanyInfo } from "@/data/company";
 import { useGetAllCompanyInfoQuery } from "@/redux/api/features/companyInfo/companyInfoApi";
 
 /**
@@ -36,7 +37,7 @@ export const useCompanyInfo = () => {
     if (companyInfo?.openingHours) return companyInfo.openingHours;
     if ((companyInfo as any)?.officeHours?.length) {
       const mondayHours = (companyInfo as any).officeHours.find(
-        (hour: any) => hour.day === "Monday",
+        (hour: any) => hour.day === "Monday"
       );
       if (mondayHours) return `${mondayHours.open} - ${mondayHours.close}`;
       return `${(companyInfo as any).officeHours[0].open} - ${(companyInfo as any).officeHours[0].close}`;

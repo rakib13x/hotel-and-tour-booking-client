@@ -42,7 +42,7 @@ export default function TermsConditionsPage() {
             Policy Not Found
           </h1>
           <p className="mb-6 text-lg text-gray-600">
-            The terms and conditions haven&apos;t been created yet.
+            The terms and conditions haven't been created yet.
           </p>
           <button
             onClick={() => router.push("/")}

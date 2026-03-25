@@ -9,8 +9,8 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 import { toast } from "sonner";
-import { RootState } from "../store";
 import { logout, setToken } from "../authSlice";
+import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env["NEXT_PUBLIC_API_URL"]!,
@@ -53,7 +53,7 @@ const baseQueryWithToken: BaseQueryFn<
           method: "POST",
         },
         api,
-        extraOptions,
+        extraOptions
       );
 
       const refreshData = refreshResult?.data as {

@@ -64,7 +64,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tagsArray.some((tag: any) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase()),
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
       const matchesCategory =
@@ -156,7 +156,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                           ) {
                             alert(
                               "Facebook doesn't allow sharing localhost URLs. Please test this on a deployed website.\n\nURL to share: " +
-                                url,
+                                url
                             );
                             return;
                           }
@@ -164,7 +164,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                           window.open(
                             `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
                             "_blank",
-                            "width=600,height=400",
+                            "width=600,height=400"
                           );
                         }}
                         className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
@@ -188,7 +188,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                           window.open(
                             `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
                             "_blank",
-                            "width=600,height=400",
+                            "width=600,height=400"
                           );
                         }}
                         className="flex items-center gap-2 rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-600"
@@ -211,7 +211,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                           window.open(
                             `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
                             "_blank",
-                            "width=600,height=400",
+                            "width=600,height=400"
                           );
                         }}
                         className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-800"
@@ -234,7 +234,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                           const text = blog.title;
                           window.open(
                             `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`,
-                            "_blank",
+                            "_blank"
                           );
                         }}
                         className="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700"
@@ -272,12 +272,13 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
                       // Already filtering automatically
-                    }
+                      }
                   }}
                   className="w-full rounded-md border border-gray-300 py-3 pr-12 pl-4 text-sm focus:border-transparent focus:ring-2 focus:ring-purple-500 focus:outline-none"
                 />
                 <button
-                  onClick={() => {}}
+                  onClick={() => {
+                    }}
                   className="absolute top-2 right-2 rounded bg-purple-600 p-2 text-white transition-colors hover:bg-purple-700"
                   title="Search"
                 >
@@ -315,10 +316,10 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
                   </label>
                 </div>
                 {Array.from(
-                  new Set(allBlogs.map((blog: any) => blog.category.name)),
+                  new Set(allBlogs.map((blog: any) => blog.category.name))
                 ).map((categoryName) => {
                   const count = allBlogs.filter(
-                    (blog: any) => blog.category.name === categoryName,
+                    (blog: any) => blog.category.name === categoryName
                   ).length;
                   return (
                     <div

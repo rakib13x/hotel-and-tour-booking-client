@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
+import { TUser } from "../types";
 import { RootState } from "./store";
-import { TUser } from "@/types";
 
 type TAuthState = {
   user: null | TUser;

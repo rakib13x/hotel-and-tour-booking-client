@@ -14,7 +14,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { useGetCountriesQuery } from "@/redux/api/features/country/countryApi";
+import {
+  useGetCountriesQuery,
+  useGetCountriesWithToursQuery,
+} from "@/redux/api/features/country/countryApi";
 import { ITour, useGetToursQuery } from "@/redux/api/features/tour/tourApi";
 import { useGetActiveTourCategoriesQuery } from "@/redux/api/features/tourCategory/tourCategoryApi";
 import { ArrowLeft, Clock, Filter, MapPin, Search, Users } from "lucide-react";
@@ -51,7 +54,7 @@ function PackageDetailsContent() {
     {
       // Refetch when filters change
       refetchOnMountOrArgChange: true,
-    },
+    }
   );
 
   // Fetch all countries instead of only those with tours
@@ -147,10 +150,7 @@ function PackageDetailsContent() {
         })
         // Only show countries that have tours in the selected category
         // UNLESS it's the currently selected country (from URL/SearchForm)
-        .filter(
-          (country) =>
-            country.packageCount > 0 || country._id === selectedCountry,
-        )
+        .filter((country) => country.packageCount > 0 || country._id === selectedCountry)
     );
   }, [countries, tours, filters.category, selectedCountry]);
 
@@ -158,7 +158,7 @@ function PackageDetailsContent() {
     (key: keyof typeof filters, value: any) => {
       setFilters((prev) => ({ ...prev, [key]: value }));
     },
-    [],
+    []
   );
 
   const formatPrice = useCallback((price: number) => {
@@ -173,7 +173,7 @@ function PackageDetailsContent() {
     (tour: ITour) => {
       router.push(`/booking-details?id=${tour._id}`);
     },
-    [router],
+    [router]
   );
 
   const handleCountrySelect = useCallback((countryId: string) => {

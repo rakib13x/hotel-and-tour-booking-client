@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useCreateQueryMutation } from "@/redux/api/features/queries/queriesApi";
-
+import { CreateQueryRequest } from "@/types/queries";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAuthCheck } from "./useAuthCheck";
-import { CreateQueryRequest } from "@/types/queries";
 
 export const useQuerySubmit = () => {
   const [createQuery, { isLoading }] = useCreateQueryMutation();
@@ -14,7 +13,7 @@ export const useQuerySubmit = () => {
 
   const submitQuery = async (
     formData: any,
-    formType: string,
+    formType: string
   ): Promise<void> => {
     setError(null);
 
@@ -87,7 +86,7 @@ export const useQuerySubmit = () => {
         queryData.childs = formData.children;
         queryData.accommodationType = formData.accommodationType?.replace(
           "-",
-          "_",
+          "_"
         ) as any;
         queryData.foodsIncluded = formData.foodsIncluded === "yes";
         queryData.guideRequired = formData.guideRequired === "yes";
@@ -107,7 +106,7 @@ export const useQuerySubmit = () => {
         {
           duration: 4000,
           position: "top-center",
-        },
+        }
       );
     } catch (err: any) {
       const errorMessage =

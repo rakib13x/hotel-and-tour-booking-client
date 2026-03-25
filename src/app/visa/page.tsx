@@ -13,7 +13,10 @@ import {
 } from "@/components/ui/popover";
 import { useAuthCheck } from "@/hooks/useAuthCheck";
 import { cn } from "@/lib/utils";
-import { useGetCountriesWithVisasQuery } from "@/redux/api/features/country/countryApi";
+import {
+  useGetCountriesQuery,
+  useGetCountriesWithVisasQuery,
+} from "@/redux/api/features/country/countryApi";
 import {
   useGetAllVisasQuery,
   useGetVisaByCountryNameQuery,
@@ -95,11 +98,11 @@ function EnhancedDropdown({
     })) || [];
 
   const filteredOptions = countryOptions.filter((option: any) =>
-    option.en.toLowerCase().includes(searchValue.toLowerCase()),
+    option.en.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   const selectedOption = countryOptions.find(
-    (option: any) => option.en === value,
+    (option: any) => option.en === value
   );
 
   return (
@@ -114,7 +117,7 @@ function EnhancedDropdown({
               "w-full justify-between rounded-lg border bg-white py-3 pr-3 pl-10 text-left font-normal shadow-sm transition-all duration-200 hover:border-blue-500 hover:shadow-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200",
               "border-gray-200",
               !selectedOption && "text-gray-500",
-              open && "border-blue-500 shadow-md",
+              open && "border-blue-500 shadow-md"
             )}
           >
             <div className="flex items-center gap-3">
@@ -126,7 +129,7 @@ function EnhancedDropdown({
             <ChevronDown
               className={cn(
                 "ml-2 h-4 w-4 flex-shrink-0 text-gray-400 transition-transform duration-200",
-                open && "rotate-180",
+                open && "rotate-180"
               )}
             />
           </Button>
@@ -174,13 +177,13 @@ function EnhancedDropdown({
                       className={cn(
                         "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-all duration-200 hover:bg-blue-50 hover:shadow-sm",
                         value === option.en &&
-                          "bg-blue-50 shadow-sm ring-1 ring-blue-200",
+                          "bg-blue-50 shadow-sm ring-1 ring-blue-200"
                       )}
                     >
                       <Check
                         className={cn(
                           "h-4 w-4 flex-shrink-0 text-blue-600 transition-opacity",
-                          value === option.en ? "opacity-100" : "opacity-0",
+                          value === option.en ? "opacity-100" : "opacity-0"
                         )}
                       />
                       <div className="flex flex-col">
@@ -231,7 +234,7 @@ const CountryInfo: React.FC = () => {
 
   // Simple search filtering (backend already filtered by active visas)
   const filteredCountries = allCountries.filter((country) =>
-    country.name.toLowerCase().includes(countrySearchTerm.toLowerCase()),
+    country.name.toLowerCase().includes(countrySearchTerm.toLowerCase())
   );
 
   // Get visa count for a country
@@ -239,7 +242,7 @@ const CountryInfo: React.FC = () => {
     return allVisas.filter(
       (visa) =>
         visa.countryName.toLowerCase() === countryName.toLowerCase() &&
-        visa.isActive,
+        visa.isActive
     ).length;
   };
 
@@ -351,10 +354,7 @@ const CountryInfo: React.FC = () => {
     if (
       !checkAuth("submit a visa query", () => {
         // If not logged in, redirect to login page
-        const currentUrl =
-          typeof window !== "undefined"
-            ? window.location.pathname + window.location.search
-            : "/visa";
+        const currentUrl = typeof window !== "undefined" ? window.location.pathname + window.location.search : "/visa";
         router.push(`/login?redirect=${encodeURIComponent(currentUrl)}`);
         return;
       })
@@ -375,10 +375,7 @@ const CountryInfo: React.FC = () => {
     if (
       !checkAuth("apply for visa", () => {
         // If not logged in, redirect to login page
-        const currentUrl =
-          typeof window !== "undefined"
-            ? window.location.pathname + window.location.search
-            : "/visa";
+        const currentUrl = typeof window !== "undefined" ? window.location.pathname + window.location.search : "/visa";
         router.push(`/login?redirect=${encodeURIComponent(currentUrl)}`);
         return;
       })
@@ -455,7 +452,7 @@ const CountryInfo: React.FC = () => {
         const result = await createVisaBookingQuery(queryData).unwrap();
 
         toast.success(
-          result.message || "Your visa query has been submitted successfully!",
+          result.message || "Your visa query has been submitted successfully!"
         );
 
         setIsModalOpen(false);
@@ -492,7 +489,7 @@ const CountryInfo: React.FC = () => {
     } catch (error: any) {
       toast.error(
         error?.data?.message ||
-          `Failed to submit ${queryType}. Please try again.`,
+          `Failed to submit ${queryType}. Please try again.`
       );
     }
   };
@@ -605,7 +602,7 @@ const CountryInfo: React.FC = () => {
                         "w-full appearance-none rounded-lg border bg-white px-4 py-2.5 pr-10 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none",
                         errors.visaType
                           ? "border-red-500"
-                          : "border-gray-300 hover:border-gray-400",
+                          : "border-gray-300 hover:border-gray-400"
                       )}
                     >
                       <option value="">Select visa type</option>
@@ -651,7 +648,7 @@ const CountryInfo: React.FC = () => {
                       "w-full rounded-lg border bg-white px-4 py-2.5 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none",
                       errors.name
                         ? "border-red-500"
-                        : "border-gray-300 hover:border-gray-400",
+                        : "border-gray-300 hover:border-gray-400"
                     )}
                   />
                   {errors.name && (
@@ -675,7 +672,7 @@ const CountryInfo: React.FC = () => {
                       "w-full rounded-lg border bg-white px-4 py-2.5 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none",
                       errors.email
                         ? "border-red-500"
-                        : "border-gray-300 hover:border-gray-400",
+                        : "border-gray-300 hover:border-gray-400"
                     )}
                   />
                   {errors.email && (
@@ -698,7 +695,7 @@ const CountryInfo: React.FC = () => {
                       "w-full rounded-lg border bg-white px-4 py-2.5 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none",
                       errors.phone
                         ? "border-red-500"
-                        : "border-gray-300 hover:border-gray-400",
+                        : "border-gray-300 hover:border-gray-400"
                     )}
                   />
                   {errors.phone && (
@@ -820,7 +817,7 @@ const CountryInfo: React.FC = () => {
                         <span className="font-bold">Official Languages:</span>{" "}
                         <span className="break-words">
                           {Object.values(countryData.languages || {}).join(
-                            ", ",
+                            ", "
                           )}
                         </span>
                       </p>

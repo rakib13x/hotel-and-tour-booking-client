@@ -44,7 +44,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             ...tag
               .split(",")
               .map((t) => t.trim())
-              .filter((t) => t.length > 0),
+              .filter((t) => t.length > 0)
           );
         } else if (typeof tag === "string" && tag.trim().length > 0) {
           // Add individual tag
@@ -66,10 +66,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   };
 
   return (
-    <Link
-      href={`/blogs/${generateSlug(blog.title, blog._id)}`}
-      className="block"
-    >
+    <Link href={`/blogs/${generateSlug(blog.title, blog._id)}`} className="block">
       <div className="flex h-[32rem] w-full transform cursor-pointer flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
         {/* Image and Status */}
         <div className="relative h-1/2 w-full overflow-hidden">

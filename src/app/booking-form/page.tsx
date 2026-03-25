@@ -127,8 +127,7 @@ function BookingFormContent() {
 
       if (result.success && result.data.paymentUrl) {
         toast.success(
-          result.message ||
-            "Booking created! Redirecting to payment gateway...",
+          result.message || "Booking created! Redirecting to payment gateway..."
         );
 
         // Redirect to SSLCommerz payment gateway
@@ -138,7 +137,7 @@ function BookingFormContent() {
       }
     } catch (error: any) {
       toast.error(
-        error?.data?.message || "Failed to create booking. Please try again.",
+        error?.data?.message || "Failed to create booking. Please try again."
       );
     }
   };
@@ -298,7 +297,7 @@ function BookingFormContent() {
                         onChange={(e) =>
                           handleInputChange(
                             "persons",
-                            parseInt(e.target.value) || 1,
+                            parseInt(e.target.value) || 1
                           )
                         }
                         required

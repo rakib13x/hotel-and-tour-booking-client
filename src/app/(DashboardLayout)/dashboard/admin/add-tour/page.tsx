@@ -222,7 +222,7 @@ export default function CreateTourPage(): React.ReactElement {
         JSON.stringify({
           days: Number(data.days),
           nights: Number(data.nights),
-        }),
+        })
       );
 
       // Category
@@ -235,8 +235,8 @@ export default function CreateTourPage(): React.ReactElement {
           data.tags
             ?.split(",")
             .map((s) => s.trim())
-            .filter(Boolean) || [],
-        ),
+            .filter(Boolean) || []
+        )
       );
       form.append(
         "highlights",
@@ -244,8 +244,8 @@ export default function CreateTourPage(): React.ReactElement {
           data.highlights
             ?.split(",")
             .map((s) => s.trim())
-            .filter(Boolean) || [],
-        ),
+            .filter(Boolean) || []
+        )
       );
       form.append(
         "inclusion",
@@ -253,8 +253,8 @@ export default function CreateTourPage(): React.ReactElement {
           data.inclusion
             ?.split(",")
             .map((s) => s.trim())
-            .filter(Boolean) || [],
-        ),
+            .filter(Boolean) || []
+        )
       );
       form.append(
         "exclusion",
@@ -262,8 +262,8 @@ export default function CreateTourPage(): React.ReactElement {
           data.exclusion
             ?.split(",")
             .map((s) => s.trim())
-            .filter(Boolean) || [],
-        ),
+            .filter(Boolean) || []
+        )
       );
 
       // Additional Details
@@ -291,33 +291,33 @@ export default function CreateTourPage(): React.ReactElement {
       if (data.offerActive) {
         if (offerDiscountType === "flat" && data.offerFlatDiscount) {
           offerData.flatDiscount = Number(data.offerFlatDiscount);
-        } else if (
+          } else if (
           offerDiscountType === "percentage" &&
           data.offerDiscountPercentage
         ) {
           offerData.discountPercentage = Number(data.offerDiscountPercentage);
-        } else {
-        }
+          } else {
+          }
 
         if (data.offerLabel?.trim()) {
           offerData.label = data.offerLabel.trim();
-        }
+          }
       } else {
-      }
+        }
 
       form.append("offer", JSON.stringify(offerData));
       // Itinerary
       if (itinerary && itinerary.length > 0) {
         const validItinerary = itinerary.filter(
-          (day) => day.dayNo > 0 && day.title.trim(),
+          (day) => day.dayNo > 0 && day.title.trim()
         );
 
         // Check for sequential day numbers
         const sortedItinerary = validItinerary.sort(
-          (a, b) => a.dayNo - b.dayNo,
+          (a, b) => a.dayNo - b.dayNo
         );
         const hasSequentialDays = sortedItinerary.every(
-          (day, index) => day.dayNo === index + 1,
+          (day, index) => day.dayNo === index + 1
         );
 
         if (!hasSequentialDays) {
@@ -339,7 +339,7 @@ export default function CreateTourPage(): React.ReactElement {
       }
       if (data.galleryImages && data.galleryImages.length > 0) {
         data.galleryImages.forEach((file) =>
-          form.append("galleryImages", file),
+          form.append("galleryImages", file)
         );
       }
 
@@ -361,7 +361,7 @@ export default function CreateTourPage(): React.ReactElement {
       toast.error(
         error?.data?.message ||
           error?.message ||
-          "Failed to create tour. Please try again.",
+          "Failed to create tour. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -688,7 +688,7 @@ export default function CreateTourPage(): React.ReactElement {
                     type="button"
                     onClick={() => {
                       const newItinerary = itinerary.filter(
-                        (_, i) => i !== dayIndex,
+                        (_, i) => i !== dayIndex
                       );
                       setItinerary(updateDayNumbers(newItinerary));
                     }}

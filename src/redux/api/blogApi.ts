@@ -25,11 +25,11 @@ const blogApi = baseApi.injectEndpoints({
         if (data.coverImage) {
           formData.append("coverImage", data.coverImage);
         } else {
-        }
+          }
 
         // Debug FormData contents
         for (let [key, value] of formData.entries()) {
-        }
+          }
 
         return {
           url: "/blogs/create",

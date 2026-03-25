@@ -5,7 +5,6 @@ import { useState, Suspense } from "react";
 import { useLoginMutation } from "@/redux/api/features/auth/authApi";
 import { setUser } from "@/redux/authSlice";
 import { useAppDispatch } from "@/redux/store";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -44,7 +43,10 @@ const LoginContent = () => {
         }
       }
     } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to login. Please check your credentials.");
+      toast.error(
+        error?.data?.message ||
+          "Failed to login. Please check your credentials."
+      );
     }
   };
 
@@ -52,7 +54,8 @@ const LoginContent = () => {
     if (redirect) {
       localStorage.setItem("auth_redirect", redirect);
     }
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+    const backendUrl =
+      process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
     window.location.href = `${backendUrl}/api/auth/google`;
   };
 
@@ -185,13 +188,11 @@ const LoginContent = () => {
         {/* Right Side - Branding */}
         <div className="relative hidden w-full bg-gradient-to-br from-blue-600 to-indigo-800 lg:flex lg:w-1/2">
           <div className="absolute inset-0 opacity-40">
-             {/* Decorative pattern or image could go here */}
+            {/* Decorative pattern or image could go here */}
           </div>
           <div className="relative z-10 flex flex-col items-center justify-center p-12 text-center text-white">
             <h2 className="mb-4 text-4xl font-bold">Gateway Holidays</h2>
-            <p className="mb-6 text-xl opacity-90">
-              Your journey begins here.
-            </p>
+            <p className="mb-6 text-xl opacity-90">Your journey begins here.</p>
             <div className="mt-8 space-y-4 text-left">
               <div className="flex items-center space-x-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
@@ -221,7 +222,13 @@ const LoginContent = () => {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><Loader2 className="h-12 w-12 animate-spin text-blue-500" /></div>}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <Loader2 className="h-12 w-12 animate-spin text-blue-500" />
+        </div>
+      }
+    >
       <LoginContent />
     </Suspense>
   );

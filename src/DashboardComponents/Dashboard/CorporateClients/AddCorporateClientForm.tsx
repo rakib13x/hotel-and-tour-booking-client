@@ -35,7 +35,7 @@ export default function AddCorporateClientForm() {
       }
 
       for (let [key, value] of formData.entries()) {
-      }
+        }
 
       await createClient(formData).unwrap();
       toast.success("Corporate client created successfully");
