@@ -1,6 +1,8 @@
 import { ICategory, IImage, ISubCategory } from "@/types/schemas";
 import { baseApi } from "../../baseApi";
 
+type GalleryQueryParams = Record<string, string | number | boolean | undefined>;
+
 // Public Gallery API endpoints for user interface
 export const publicGalleryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -30,7 +32,7 @@ export const publicGalleryApi = baseApi.injectEndpoints({
           totalPages: number;
         };
       },
-      any
+      GalleryQueryParams
     >({
       query: (params) => ({
         url: "/gallery/subcategories",
@@ -67,7 +69,7 @@ export const publicGalleryApi = baseApi.injectEndpoints({
           totalPages: number;
         };
       },
-      any
+      GalleryQueryParams
     >({
       query: (params) => ({
         url: "/gallery/images",

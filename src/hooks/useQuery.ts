@@ -1,10 +1,34 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useCreateQueryMutation } from "@/redux/api/features/queries/queriesApi";
-import { CreateQueryRequest } from "@/types/queries";
+import { CreateQueryRequest, QueryFormType } from "@/types/queries";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAuthCheck } from "./useAuthCheck";
+
+interface QueryFormData {
+  name: string;
+  email?: string;
+  contactNumber: string;
+  startingDate: string;
+  returnDate: string;
+  airlineTicketCategory?: string;
+  airlineChoice?: string;
+  specialRequirements?: string;
+  // hajj_umrah
+  accommodationType?: string;
+  foodsIncluded?: string;
+  guideRequired?: string;
+  privateTransportation?: string;
+  makkahNights?: number;
+  madinaNights?: number;
+  maleAdults?: number;
+  femaleAdults?: number;
+  children?: number;
+  // package_tour
+  visitingCountry?: string;
+  visitingCities?: string;
+  persons?: number;
+  needsVisa?: string;
+}
 
 export const useQuerySubmit = () => {
   const [createQuery, { isLoading }] = useCreateQueryMutation();
@@ -12,8 +36,8 @@ export const useQuerySubmit = () => {
   const { checkAuth } = useAuthCheck();
 
   const submitQuery = async (
-    formData: any,
-    formType: string
+    formData: QueryFormData,
+    formType: QueryFormType
   ): Promise<void> => {
     setError(null);
 
@@ -38,7 +62,7 @@ export const useQuerySubmit = () => {
 
       // Map form data to backend schema
       const queryData: CreateQueryRequest = {
-        formType: formType as any,
+        formType: formType,
         name: formData.name,
         email: formData.email,
         contactNumber: formData.contactNumber,
@@ -99,7 +123,7 @@ export const useQuerySubmit = () => {
         queryData.needsVisa = formData.needsVisa === "yes";
       }
 
-      const result = await createQuery(queryData).unwrap();
+      await createQuery(queryData).unwrap();
 
       toast.success(
         "Query submitted successfully! We'll get back to you within 24 hours.",
@@ -108,11 +132,13 @@ export const useQuerySubmit = () => {
           position: "top-center",
         }
       );
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage =
-        err?.data?.message ||
-        err?.message ||
-        "Failed to submit query. Please try again.";
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Something went wrong"
+          : err instanceof Error
+            ? err.message
+            : "Failed to submit query. Please try again.";
       setError(errorMessage);
 
       toast.error(errorMessage, {

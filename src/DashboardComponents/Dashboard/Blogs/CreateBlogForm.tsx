@@ -120,15 +120,19 @@ export default function CreateBlogForm(): React.ReactElement {
     }
 
     try {
-      const result = await createCategory({
+      await createCategory({
         name: newCategoryName.trim(),
       }).unwrap();
       toast.success("Category created successfully");
       setNewCategoryName("");
       setIsCategoryDialogOpen(false);
       await refetchCategories();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to create category");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to create category"
+          : "Failed to create category";
+      toast.error(errorMessage);
     }
   };
 
@@ -213,7 +217,7 @@ export default function CreateBlogForm(): React.ReactElement {
     };
 
     try {
-      const result = await createBlog(payload).unwrap();
+      await createBlog(payload).unwrap();
       toast.success("Blog created successfully");
 
       // Redirect to blogs list page after successful creation

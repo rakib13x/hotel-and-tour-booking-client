@@ -1,4 +1,6 @@
 import { TUser } from "@/types";
+import { setUser } from "@/redux/authSlice";
+import { RootState } from "@/redux/store";
 import { baseApi } from "../../baseApi";
 
 // Auth API interfaces
@@ -101,14 +103,11 @@ export const authApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           // Update the auth state with the returned user data
           if (data?.data) {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const currentToken = state.auth?.token;
-            dispatch({
-              type: "auth/setUser",
-              payload: { user: data.data, token: currentToken },
-            });
+            dispatch(setUser({ user: data.data, token: currentToken }));
           }
-        } catch (error) {
+        } catch {
           // Handle error if needed
         }
       },
@@ -140,14 +139,11 @@ export const authApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           // Update the auth state with the returned user data
           if (data?.data) {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const currentToken = state.auth?.token;
-            dispatch({
-              type: "auth/setUser",
-              payload: { user: data.data, token: currentToken },
-            });
+            dispatch(setUser({ user: data.data, token: currentToken }));
           }
-        } catch (error) {
+        } catch {
           // Handle error if needed
         }
       },

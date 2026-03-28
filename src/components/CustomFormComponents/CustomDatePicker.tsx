@@ -61,7 +61,7 @@ const CustomDatePicker = <T extends FieldValues>({
               <Calendar
                 mode="single"
                 selected={field.value ? new Date(field.value) : undefined}
-                onSelect={(date) => field.onChange(date)}
+                onSelect={(date: Date | undefined) => field.onChange(date)}
                 initialFocus
                 captionLayout="dropdown"
                 startMonth={new Date(2000, 0)}

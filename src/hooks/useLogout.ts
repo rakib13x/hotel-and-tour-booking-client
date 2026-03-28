@@ -34,7 +34,7 @@ export const useLogout = () => {
 
       // Navigate to home page using Next.js router
       router.push("/");
-    } catch (error: any) {
+    } catch {
       // Even if API call fails, still logout locally
       dispatch(logout());
       await persistor.purge();

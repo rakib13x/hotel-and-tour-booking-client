@@ -88,7 +88,7 @@ export default function EditCategoryForm({
 
     setIsUpdating(true);
     try {
-      const result = await updateCategory({
+      await updateCategory({
         id: categoryId,
         data: { name: data.name.trim() },
       }).unwrap();

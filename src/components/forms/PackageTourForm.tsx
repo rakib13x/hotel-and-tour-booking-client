@@ -39,7 +39,7 @@ export default function PackageTourForm() {
     try {
       await submitQuery(data, "package_tour");
       reset();
-    } catch (error) {
+    } catch {
       }
   };
 

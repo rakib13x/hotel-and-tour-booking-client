@@ -14,7 +14,7 @@ export interface ITour {
         capital?: string;
         continent?: string;
         flagUrl?: string;
-        [key: string]: any;
+        [key: string]: unknown;
       };
   duration: {
     days: number;
@@ -28,7 +28,7 @@ export interface ITour {
         category_name: string;
         description?: string;
         img?: string;
-        [key: string]: any;
+        [key: string]: unknown;
       };
   tags: string[];
   highlights: string[];

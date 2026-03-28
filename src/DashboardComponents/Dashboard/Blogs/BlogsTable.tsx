@@ -1,6 +1,6 @@
 "use client";
 
-import DataTable from "@/components/admin/DataTable";
+import DataTable, { Column } from "@/components/admin/DataTable";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Blog } from "@/types/blog";
@@ -58,7 +58,7 @@ export default function BlogsTable({
       ? cleanedContent.substring(0, maxLength) + "..."
       : cleanedContent;
   };
-  const columns = [
+  const columns: Column<Blog>[] = [
     {
       header: "Post",
       accessorKey: "title",

@@ -2,7 +2,6 @@
 
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
-
 import { useLoginMutation } from "@/redux/api/features/auth/authApi";
 import { setUser } from "@/redux/authSlice";
 import { useAppDispatch } from "@/redux/store";
@@ -31,11 +30,9 @@ const LoginCard = () => {
         toast.success("Login successful, redirecting...");
         dispatch(setUser({ user: response.user, token: response.token }));
 
-        // If redirect parameter exists, go to that page
         if (redirect) {
           router.push(redirect);
         } else {
-          // Otherwise, use role-based default redirect
           if (
             response.user.role === "admin" ||
             response.user.role === "super_admin"
@@ -46,7 +43,7 @@ const LoginCard = () => {
           }
         }
       }
-    } catch (error) {
+    } catch {
       toast.error(error?.data?.message || "Failed to login");
     }
   };

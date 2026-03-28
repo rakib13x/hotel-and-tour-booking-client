@@ -36,7 +36,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
         }
 
         // Verify token
-        const user = verifyJWT(token) as TUser;
+        const user = verifyJWT<TUser>(token);
 
         if (!user) {
           router.push(redirectTo);
@@ -52,7 +52,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
         }
 
         setIsAuthorized(true);
-      } catch (error) {
+      } catch {
         router.push(redirectTo);
       } finally {
         setIsLoading(false);

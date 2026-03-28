@@ -54,12 +54,12 @@ export default function CorporateClientsClient(): React.ReactElement {
   const [reorderClients, { isLoading: isReordering }] =
     useReorderCorporateClientsMutation();
 
-  const clients = clientsData?.data || [];
+  const clients = (clientsData?.data || []) as ICorporateClient[];
 
   // Update local order when API data changes
   useEffect(() => {
     if (clientsData?.data) {
-      setClientsOrder(clientsData.data);
+      setClientsOrder(clientsData.data as ICorporateClient[]);
     }
   }, [clientsData?.data]);
 
@@ -80,8 +80,12 @@ export default function CorporateClientsClient(): React.ReactElement {
       await deleteClient(id).unwrap();
       toast.success("Corporate client deleted successfully");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to delete corporate client");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to delete corporate client"
+          : "Failed to delete corporate client";
+      toast.error(errorMessage);
     } finally {
       setDeletingId(null);
     }
@@ -140,10 +144,12 @@ export default function CorporateClientsClient(): React.ReactElement {
 
         // Force refetch to get updated order from backend
         refetch();
-      } catch (error: any) {
-        toast.error(
-          error?.data?.message || "Failed to reorder corporate clients"
-        );
+      } catch (err: unknown) {
+        const errorMessage =
+          err && typeof err === "object" && "data" in err
+            ? (err as any).data?.message || "Failed to reorder corporate clients"
+            : "Failed to reorder corporate clients";
+        toast.error(errorMessage);
         // Revert to original order on error
         setClientsOrder(clients);
       }

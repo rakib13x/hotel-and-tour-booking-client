@@ -76,7 +76,7 @@ function GoogleCallbackContent() {
             router.replace("/");
           }
         }
-      } catch (err) {
+      } catch {
         hasProcessedRef.current = true;
         toast.error("Failed to process authentication data");
         setProcessing(false);

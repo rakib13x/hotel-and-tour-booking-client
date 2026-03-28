@@ -91,7 +91,7 @@ export async function proxy(request: NextRequest) {
       const dashboardPath = `/dashboard/${user.role}`;
       return NextResponse.redirect(new URL(dashboardPath, request.url));
     }
-  } catch (error) {
+  } catch {
     // Invalid token - redirect to home page
     return NextResponse.redirect(new URL("/", request.url));
   }

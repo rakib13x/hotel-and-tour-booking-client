@@ -1,3 +1,4 @@
+import { TResponse } from "@/types";
 import {
   CompanyImagesResponse,
   CreateCompanyImagesRequest,
@@ -22,7 +23,8 @@ export const companyImagesApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/company-images/${id}`,
       }),
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: TResponse<ICompanyImages>) =>
+        response.data as ICompanyImages,
       providesTags: (_, __, id) => [{ type: "CompanyImages", id }],
     }),
 
@@ -36,7 +38,8 @@ export const companyImagesApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: TResponse<ICompanyImages>) =>
+        response.data as ICompanyImages,
       invalidatesTags: ["CompanyImages"],
     }),
 
@@ -50,7 +53,8 @@ export const companyImagesApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: TResponse<ICompanyImages>) =>
+        response.data as ICompanyImages,
       invalidatesTags: (_, __, { id }) => [
         { type: "CompanyImages", id },
         "CompanyImages",
@@ -63,7 +67,7 @@ export const companyImagesApi = baseApi.injectEndpoints({
         url: `/company-images/${id}`,
         method: "DELETE",
       }),
-      transformResponse: (response: any) => response,
+      transformResponse: (response: TResponse<null>) => response,
       invalidatesTags: ["CompanyImages"],
     }),
 
@@ -81,7 +85,8 @@ export const companyImagesApi = baseApi.injectEndpoints({
         method: "DELETE",
         body: data,
       }),
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: TResponse<ICompanyImages>) =>
+        response.data as ICompanyImages,
       invalidatesTags: (_, __, { id }) => [
         { type: "CompanyImages", id },
         "CompanyImages",

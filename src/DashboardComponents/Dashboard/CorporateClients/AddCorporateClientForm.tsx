@@ -12,7 +12,7 @@ import { useCreateCorporateClientMutation } from "../../../redux/api/corporateCl
 
 const corporateClientSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  logo: z.any().optional(), // We'll handle logo validation in the component
+  logo: z.instanceof(File).optional().nullable(), // Properly typed logo
 });
 
 type CorporateClientFormData = z.infer<typeof corporateClientSchema>;
@@ -34,14 +34,15 @@ export default function AddCorporateClientForm() {
         return;
       }
 
-      for (let [key, value] of formData.entries()) {
-        }
-
       await createClient(formData).unwrap();
       toast.success("Corporate client created successfully");
       router.push("/dashboard/admin/corporate-clients");
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to create corporate client");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to create corporate client"
+          : "Failed to create corporate client";
+      toast.error(errorMessage);
     }
   };
 

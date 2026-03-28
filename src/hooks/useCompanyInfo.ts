@@ -1,5 +1,6 @@
 import { companyInfo as staticCompanyInfo } from "@/data/company";
 import { useGetAllCompanyInfoQuery } from "@/redux/api/features/companyInfo/companyInfoApi";
+import { ICompanyInfo, OfficeHour } from "@/types/companyInfo";
 
 /**
  * Custom hook to get company information with fallback to static data
@@ -19,8 +20,8 @@ export const useCompanyInfo = () => {
 
   // Extract company data from API response, fallback to static data
   const apiCompanyData = Array.isArray(companyInfoResponse?.data)
-    ? companyInfoResponse?.data?.[0]
-    : companyInfoResponse?.data;
+    ? (companyInfoResponse?.data?.[0] as ICompanyInfo)
+    : (companyInfoResponse?.data as ICompanyInfo);
 
   // Use API data if available, otherwise use static fallback data
   const companyInfo = apiCompanyData || staticCompanyInfo;
@@ -35,12 +36,12 @@ export const useCompanyInfo = () => {
   const getAddress = () => companyInfo?.address || staticCompanyInfo.address;
   const getOpeningHours = () => {
     if (companyInfo?.openingHours) return companyInfo.openingHours;
-    if ((companyInfo as any)?.officeHours?.length) {
-      const mondayHours = (companyInfo as any).officeHours.find(
-        (hour: any) => hour.day === "Monday"
+    if (companyInfo?.officeHours?.length) {
+      const mondayHours = companyInfo.officeHours.find(
+        (hour: OfficeHour) => hour.day === "Monday"
       );
       if (mondayHours) return `${mondayHours.open} - ${mondayHours.close}`;
-      return `${(companyInfo as any).officeHours[0].open} - ${(companyInfo as any).officeHours[0].close}`;
+      return `${companyInfo.officeHours[0].open} - ${companyInfo.officeHours[0].close}`;
     }
     return staticCompanyInfo.openingHours;
   };
@@ -50,9 +51,8 @@ export const useCompanyInfo = () => {
     companyInfo?.googleMapUrl || staticCompanyInfo.googleMapUrl;
   const getDescription = () =>
     companyInfo?.description || staticCompanyInfo.description;
-  const getLogo = () => (companyInfo as any)?.logo || staticCompanyInfo.logo;
-  const getYearsOfExperience = () =>
-    (companyInfo as any)?.yearsOfExperience || 0;
+  const getLogo = () => companyInfo?.logo || staticCompanyInfo.logo;
+  const getYearsOfExperience = () => companyInfo?.yearsOfExperience || 0;
 
   return {
     // Main data

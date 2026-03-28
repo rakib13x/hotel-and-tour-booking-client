@@ -11,11 +11,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthCheck } from "@/hooks/useAuthCheck";
 import { useLogout } from "@/hooks/useLogout";
-import { ChevronDown, LayoutDashboard, LogOut, Lock, Menu, User as UserIcon, X } from "lucide-react";
+import {
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  Lock,
+  Menu,
+  User as UserIcon,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import logo from "../../../../public/logo/logo.jpg"
+import logo from "../../../../public/logo/logo.jpg";
 import { TUser } from "@/types";
 
 interface MobileNavbarProps {
@@ -81,7 +89,7 @@ export default function MobileNavbar({
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
           />
         </Link>
-        
+
         <div className="flex items-center gap-2 px-4 py-3">
           {/* Profile Dropdown directly on Mobile Navbar */}
           <div className="flex items-center">
@@ -90,9 +98,14 @@ export default function MobileNavbar({
                 <DropdownMenuTrigger asChild>
                   <button className="focus:outline-none">
                     <Avatar className="h-9 w-9 border-2 border-white transition-all hover:scale-105">
-                      <AvatarImage src={user?.profileImg} alt={user?.name || "User"} />
+                      <AvatarImage
+                        src={user?.profileImg || undefined}
+                        alt={user?.name || "User"}
+                      />
                       <AvatarFallback className="bg-accent text-white text-xs">
-                        {user?.name?.charAt(0).toUpperCase() || <UserIcon className="h-4 w-4" />}
+                        {user?.name?.charAt(0).toUpperCase() || (
+                          <UserIcon className="h-4 w-4" />
+                        )}
                       </AvatarFallback>
                     </Avatar>
                   </button>
@@ -100,7 +113,9 @@ export default function MobileNavbar({
                 <DropdownMenuContent align="end" className="w-56 mt-2 z-[60]">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{user?.name}</p>
+                      <p className="text-sm font-medium leading-none">
+                        {user?.name}
+                      </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user?.email}
                       </p>
@@ -190,14 +205,23 @@ export default function MobileNavbar({
             <div className="border-b border-gray-100 p-6 bg-gray-50/50">
               <div className="flex items-center gap-4">
                 <Avatar className="h-12 w-12 border-2 border-primary/10">
-                  <AvatarImage src={user?.profileImg || ""} alt={user?.name || "User"} />
+                  <AvatarImage
+                    src={user?.profileImg || ""}
+                    alt={user?.name || "User"}
+                  />
                   <AvatarFallback className="bg-primary text-white">
-                    {user?.name?.charAt(0).toUpperCase() || <UserIcon className="h-6 w-6" />}
+                    {user?.name?.charAt(0).toUpperCase() || (
+                      <UserIcon className="h-6 w-6" />
+                    )}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <span className="text-sm font-bold text-gray-900 line-clamp-1">{user?.name}</span>
-                  <span className="text-xs text-gray-500 line-clamp-1">{user?.email}</span>
+                  <span className="text-sm font-bold text-gray-900 line-clamp-1">
+                    {user?.name}
+                  </span>
+                  <span className="text-xs text-gray-500 line-clamp-1">
+                    {user?.email}
+                  </span>
                 </div>
               </div>
             </div>
@@ -236,7 +260,9 @@ export default function MobileNavbar({
                               if (
                                 !checkAuth(
                                   `access ${item.label.toLowerCase()} query`,
-                                  () => { window.location.href = "/login"; }
+                                  () => {
+                                    window.location.href = "/login";
+                                  },
                                 )
                               ) {
                                 return;
@@ -288,7 +314,9 @@ export default function MobileNavbar({
                   onClick={handleLogout}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Logging out..." : (
+                  {isLoading ? (
+                    "Logging out..."
+                  ) : (
                     <>
                       <LogOut className="h-4 w-4" />
                       Logout

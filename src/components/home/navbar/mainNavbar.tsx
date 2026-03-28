@@ -166,7 +166,7 @@ export default function MainNavbar({
                                 if (
                                   !checkAuth(
                                     `access ${item.label.toLowerCase()} query`,
-                                    () => setIsLoginModalOpen(true)
+                                    () => setIsLoginModalOpen(true),
                                   )
                                 ) {
                                   return;
@@ -206,7 +206,7 @@ export default function MainNavbar({
                     <button className="focus:outline-none">
                       <Avatar className="h-10 w-10 border-2 border-white transition-all hover:scale-105">
                         <AvatarImage
-                          src={user?.profileImg}
+                          src={user?.profileImg || undefined}
                           alt={user?.name || "User"}
                         />
                         <AvatarFallback className="bg-accent text-white">

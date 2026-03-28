@@ -39,10 +39,10 @@ function CustomForm<T extends FieldValues>({
   const submit = async (data: T): Promise<void> => {
     try {
       await onSubmit(data);
-      methods.reset(); // Optional: Reset form after submit
-    } catch (error) {
+      methods.reset();
+    } catch {
       const errorMessage =
-        error instanceof Error ? error.message : "An unknown error occurred";
+        errors instanceof Error ? errors.message : "An unknown error occurred";
       toast.error(`Error submitting form: ${errorMessage}`);
     }
   };

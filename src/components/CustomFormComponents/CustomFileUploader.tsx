@@ -5,7 +5,13 @@ import { CloudUpload } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Accept, useDropzone } from "react-dropzone";
-import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldValues,
+  Path,
+  useFormContext,
+  PathValue,
+} from "react-hook-form";
 
 interface CustomFileUploaderProps<T extends FieldValues> {
   name: Path<T>;
@@ -40,7 +46,7 @@ const CustomFileUploader = <T extends FieldValues>({
 
   const onDrop = (acceptedFiles: File[]): void => {
     setFiles(
-      multiple ? acceptedFiles : acceptedFiles[0] ? [acceptedFiles[0]] : []
+      multiple ? acceptedFiles : acceptedFiles[0] ? [acceptedFiles[0]] : [],
     );
   };
 
@@ -57,7 +63,7 @@ const CustomFileUploader = <T extends FieldValues>({
         ? existingImages
         : [existingImages];
       const filteredImages = imageArray.filter(
-        (img) => img && img.trim() !== ""
+        (img) => img && img.trim() !== "",
       );
       setExistingImageUrls(filteredImages);
 
@@ -83,7 +89,7 @@ const CustomFileUploader = <T extends FieldValues>({
       // Trigger validation to clear the "required" error
       trigger(name);
       const previews = files.map((file) =>
-        file.type.startsWith("image/") ? URL.createObjectURL(file) : ""
+        file.type.startsWith("image/") ? URL.createObjectURL(file) : "",
       );
       setFilePreviews(previews);
     } else {
@@ -91,7 +97,7 @@ const CustomFileUploader = <T extends FieldValues>({
       if (multiple) {
         setValue(
           name,
-          existingImageUrls.length > 0 ? (existingImageUrls as any) : []
+          existingImageUrls.length > 0 ? (existingImageUrls as any) : [],
         );
       } else {
         setValue(name, null as any, { shouldValidate: true });
@@ -119,7 +125,7 @@ const CustomFileUploader = <T extends FieldValues>({
       setValue(
         name,
         existingImageUrls.length > 0 ? (existingImageUrls as any) : [],
-        { shouldValidate: false }
+        { shouldValidate: false },
       );
     } else {
       // For single file, set to empty (don't keep existing image URL)
@@ -140,13 +146,15 @@ const CustomFileUploader = <T extends FieldValues>({
     setFiles(updatedFiles);
     setFilePreviews(updatedPreviews);
 
-    // Update form value - combine existing images with remaining files
+    // Update form value
     if (multiple) {
       const combinedValue = [...existingImageUrls, ...updatedFiles];
-      setValue(name, combinedValue as any);
+      setValue(name, combinedValue as PathValue<T, Path<T>>);
     } else {
-      setValue(name, updatedFiles[0] || (null as any));
+      const value = updatedFiles.length > 0 ? updatedFiles[0] : null;
+      setValue(name, value as PathValue<T, Path<T>>);
     }
+
     trigger(name);
   };
 

@@ -40,6 +40,11 @@ interface BlogFormData {
   status: string;
 }
 
+interface BlogCategory {
+  _id: string;
+  name: string;
+}
+
 // interface BlogPayload {
 //   title: string;
 //   categoryName: string;
@@ -81,7 +86,7 @@ export default function UpdateBlogForm(): React.ReactElement {
         setEditingBlog(blog);
         setContent(blog.content || "");
         setCurrentCoverImage(blog.coverImage || "");
-      } catch (error) {
+      } catch {
         toast.error("Error loading blog data");
         router.push("/dashboard/admin/blogs");
       }
@@ -126,8 +131,12 @@ export default function UpdateBlogForm(): React.ReactElement {
       setNewCategoryName("");
       setIsCategoryDialogOpen(false);
       await refetchCategories();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to create category");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to create category"
+          : "Failed to create category";
+      toast.error(errorMessage);
     } finally {
       setIsCreatingCategory(false);
     }
@@ -146,13 +155,13 @@ export default function UpdateBlogForm(): React.ReactElement {
       content,
     };
 
-    const payload: any =
+    const payload =
       !data.coverImage && currentCoverImage
-        ? (({ coverImage, ...rest }) => rest)(basePayload)
+        ? (({ coverImage: _, ...rest }) => rest)(basePayload)
         : basePayload;
 
     try {
-      const result = await updateBlog({
+      await updateBlog({
         id: editingBlog._id,
         data: payload,
       }).unwrap();
@@ -160,16 +169,20 @@ export default function UpdateBlogForm(): React.ReactElement {
       // Clear localStorage and redirect
       localStorage.removeItem("editingBlog");
       router.push("/dashboard/admin/blogs");
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to update blog");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to update blog"
+          : "Failed to update blog";
+      toast.error(errorMessage);
     }
   };
 
   // ✅ Transform API data to CategoryOption format
   const categoryOptions: CategoryOption[] =
-    categoriesData?.data?.map((category: any) => ({
-      label: category.name || category.title,
-      value: category.name || category.title, // Use name as value
+    categoriesData?.data?.map((category: BlogCategory) => ({
+      label: category.name,
+      value: category.name, // Use name as value
     })) || [];
 
   // ✅ Show loading state for categories

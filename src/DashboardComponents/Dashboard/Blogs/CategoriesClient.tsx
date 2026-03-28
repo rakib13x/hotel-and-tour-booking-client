@@ -29,11 +29,20 @@ import { Edit, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+interface BlogCategory {
+  _id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export default function CategoriesClient(): React.ReactElement {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-  const [editingCategory, setEditingCategory] = useState<any>(null);
+  const [editingCategory, setEditingCategory] = useState<BlogCategory | null>(
+    null
+  );
   const [categoryName, setCategoryName] = useState<string>("");
 
   // Fetch categories
@@ -70,14 +79,18 @@ export default function CategoriesClient(): React.ReactElement {
       setIsCreateModalOpen(false);
       setCategoryName("");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to create category");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to create category"
+          : "Failed to create category";
+      toast.error(errorMessage);
       // Don't reset form or close modal on error - keep user's input
     }
   };
 
   // Edit handler
-  const handleEdit = (category: any) => {
+  const handleEdit = (category: BlogCategory) => {
     setEditingCategory(category);
     setCategoryName(category.name);
     setIsEditModalOpen(true);
@@ -102,8 +115,12 @@ export default function CategoriesClient(): React.ReactElement {
       setEditingCategory(null);
       setCategoryName("");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to update category");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to update category"
+          : "Failed to update category";
+      toast.error(errorMessage);
       // Don't reset form or close modal on error - keep user's input
     }
   };
@@ -119,8 +136,12 @@ export default function CategoriesClient(): React.ReactElement {
       await deleteCategory(id).unwrap();
       toast.success("Category deleted successfully");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to delete category");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to delete category"
+          : "Failed to delete category";
+      toast.error(errorMessage);
     } finally {
       setDeletingId(null);
     }
@@ -144,7 +165,7 @@ export default function CategoriesClient(): React.ReactElement {
     );
   }
 
-  const categories = categoriesData?.data || [];
+  const categories = (categoriesData?.data || []) as BlogCategory[];
 
   return (
     <div className="w-full space-y-4 rounded-xl bg-gray-50 p-6 shadow-lg">
@@ -295,7 +316,7 @@ export default function CategoriesClient(): React.ReactElement {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {categories.map((category: any) => (
+              {categories.map((category: BlogCategory) => (
                 <TableRow key={category._id}>
                   <TableCell className="font-medium">{category.name}</TableCell>
                   <TableCell>

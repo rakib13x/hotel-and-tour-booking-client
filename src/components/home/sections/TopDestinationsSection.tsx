@@ -226,15 +226,15 @@ export default function TopDestinationsSection({
 
                         {/* Capital & Continent Info */}
                         <div className="space-y-1">
-                          {(country as any).capital && (
+                          {country.capital && (
                             <div className="flex items-center gap-2 text-sm text-white/90">
                               <MapPin className="h-3 w-3" />
-                              <span>{(country as any).capital}</span>
+                              <span>{country.capital}</span>
                             </div>
                           )}
-                          {(country as any).continent && (
+                          {country.continent && (
                             <div className="inline-flex items-center rounded-full bg-white/20 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                              {(country as any).continent}
+                              {country.continent}
                             </div>
                           )}
                         </div>
@@ -288,15 +288,15 @@ export default function TopDestinationsSection({
 
                         {/* Capital & Continent Info */}
                         <div className="space-y-2">
-                          {(country as any).capital && (
+                          {country.capital && (
                             <div className="flex items-center gap-2 text-sm text-white/90">
                               <MapPin className="h-4 w-4" />
-                              <span>{(country as any).capital}</span>
+                              <span>{country.capital}</span>
                             </div>
                           )}
-                          {(country as any).continent && (
+                          {country.continent && (
                             <div className="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm sm:text-sm">
-                              {(country as any).continent}
+                              {country.continent}
                             </div>
                           )}
                         </div>

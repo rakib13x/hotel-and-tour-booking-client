@@ -87,10 +87,6 @@ export default function TourCategoryForm({
       formData.append("image", data.img[0]!);
     }
 
-    // Log FormData contents
-    for (const pair of formData.entries()) {
-      }
-
     await onSubmit(formData);
   };
 

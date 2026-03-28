@@ -6,6 +6,7 @@ import {
   DefinitionType,
   FetchArgs,
   fetchBaseQuery,
+  FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 
 import { toast } from "sonner";
@@ -39,8 +40,8 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithToken: BaseQueryFn<
   FetchArgs,
-  BaseQueryApi,
-  DefinitionType
+  unknown,
+  FetchBaseQueryError
 > = async (args, api, extraOptions): Promise<any> => {
   try {
     let result = await baseQuery(args, api, extraOptions);
@@ -62,7 +63,7 @@ const baseQueryWithToken: BaseQueryFn<
         message: string;
       };
 
-      if (refreshData.success) {
+      if (refreshData?.success) {
         // Set new access token
         api.dispatch(setToken(refreshData.data.accessToken));
         // Retry the original request
@@ -77,7 +78,7 @@ const baseQueryWithToken: BaseQueryFn<
   } catch {
     toast.error("Login Expired");
     api.dispatch(logout());
-    return { error: { status: 500, message: "An unexpected error occurred" } };
+    return { error: { status: 500, data: { message: "An unexpected error occurred" } } as FetchBaseQueryError };
   }
 };
 

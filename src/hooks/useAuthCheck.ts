@@ -29,7 +29,7 @@ export const useAuthCheck = () => {
           const parsed = JSON.parse(persistAuth);
           localAuthUser = parsed.user !== "null" ? parsed.user : null;
         }
-      } catch (e) {
+      } catch {
         }
     }
 

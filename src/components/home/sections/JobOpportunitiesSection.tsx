@@ -45,7 +45,7 @@ const JobOpportunitiesSection: React.FC = () => {
       link.click();
       document.body.removeChild(link);
 
-      } catch (error) {
+      } catch {
       alert("ডাউনলোডে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
     } finally {
       setIsDownloading(false);

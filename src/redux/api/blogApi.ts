@@ -1,3 +1,4 @@
+import { TQueryParam } from "@/types";
 import { baseApi } from "./baseApi";
 
 const blogApi = baseApi.injectEndpoints({
@@ -24,12 +25,7 @@ const blogApi = baseApi.injectEndpoints({
 
         if (data.coverImage) {
           formData.append("coverImage", data.coverImage);
-        } else {
-          }
-
-        // Debug FormData contents
-        for (let [key, value] of formData.entries()) {
-          }
+        }
 
         return {
           url: "/blogs/create",
@@ -80,10 +76,10 @@ const blogApi = baseApi.injectEndpoints({
     }),
 
     getAllBlogs: builder.query({
-      query: (args) => {
+      query: (args: TQueryParam[]) => {
         const params = new URLSearchParams();
         if (args) {
-          args.forEach((item: any) => {
+          args.forEach((item: TQueryParam) => {
             params.append(item.name, item.value as string);
           });
         }

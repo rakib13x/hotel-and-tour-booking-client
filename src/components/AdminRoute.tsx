@@ -36,7 +36,7 @@ const AdminRoute: React.FC<AdminRouteProps> = ({
         }
 
         // Verify token
-        const user = verifyJWT(token) as TUser;
+        const user = verifyJWT<TUser>(token);
 
         if (!user) {
           router.push("/login");
@@ -62,7 +62,7 @@ const AdminRoute: React.FC<AdminRouteProps> = ({
 
         // If we reach here, user is authorized
         setIsAuthorized(true);
-      } catch (error) {
+      } catch {
         router.push("/login");
       } finally {
         setIsLoading(false);

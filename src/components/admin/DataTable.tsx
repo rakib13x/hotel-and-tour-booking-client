@@ -12,7 +12,7 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 
-interface Column<T> {
+export interface Column<T> {
   header: React.ReactNode;
   accessorKey: keyof T | string;
   className?: string;

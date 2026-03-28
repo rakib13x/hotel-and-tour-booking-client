@@ -60,9 +60,9 @@ export default function BannersPage() {
       toast.success("Banner deleted successfully");
       setDeleteConfirmOpen(false);
       setBannerToDelete(null);
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete banner");
-      }
+    }
   };
 
   const handleDeleteCancel = () => {
@@ -335,9 +335,9 @@ export default function BannersPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Banner</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete the banner "
-              {bannerToDelete?.title}"? This action cannot be undone and will
-              permanently remove the banner from the system.
+              Are you sure you want to delete the banner &quot;
+              {bannerToDelete?.title}&quot;? This action cannot be undone and
+              will permanently remove the banner from the system.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

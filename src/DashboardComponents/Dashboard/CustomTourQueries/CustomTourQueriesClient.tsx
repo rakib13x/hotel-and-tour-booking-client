@@ -62,8 +62,12 @@ export default function CustomTourQueriesClient(): React.ReactElement {
     try {
       await updateQuery({ id, data: { status } }).unwrap();
       toast.success(`Query status updated to ${status}!`);
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to update status");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to update status"
+          : "Failed to update status";
+      toast.error(errorMessage);
     }
   };
 
@@ -80,8 +84,12 @@ export default function CustomTourQueriesClient(): React.ReactElement {
       toast.success("Query deleted successfully!");
       setDeleteConfirmOpen(false);
       setQueryToDelete(null);
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to delete query");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to delete query"
+          : "Failed to delete query";
+      toast.error(errorMessage);
     }
   };
 

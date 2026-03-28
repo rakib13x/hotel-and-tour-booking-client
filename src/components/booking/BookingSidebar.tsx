@@ -531,7 +531,7 @@ export const BookingSidebar: React.FC<BookingSidebarProps> = ({
       doc.save(fileName);
 
       toast.success("Package details PDF downloaded successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to download package details. Please try again.");
     }
   };

@@ -300,7 +300,7 @@ const CountryInfo: React.FC = () => {
 
       // Set country data in English
       setCountryData(raw);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch country information");
       setCountryData(null);
     } finally {

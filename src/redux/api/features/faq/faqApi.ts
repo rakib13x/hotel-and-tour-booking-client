@@ -1,3 +1,4 @@
+import { TResponse } from "@/types";
 import {
   CreateFaqRequest,
   FaqFilters,
@@ -58,7 +59,8 @@ export const faqApi = baseApi.injectEndpoints({
         url: "/faqs",
         method: "GET",
       }),
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: TResponse<IFaq[]>) =>
+        response.data as IFaq[],
       providesTags: ["activeFaqs"],
     }),
 

@@ -41,7 +41,7 @@ const translateText = async (
 
     const data: TranslationResponse = await response.json();
     return data.data?.translations?.[0]?.translatedText || text;
-  } catch (error) {
+  } catch {
     return text; // Return original text on error
   }
 };

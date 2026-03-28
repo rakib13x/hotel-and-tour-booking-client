@@ -209,7 +209,7 @@ export default function GalleryPage() {
       // Only reset form and close dialog on success
       setCategoryForm({ name: "", image: null });
       setIsCategoryDialogOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to create category");
       // Don't reset form or close dialog on error - keep user's input
     }
@@ -247,7 +247,7 @@ export default function GalleryPage() {
       // Only reset form and close dialog on success
       setEditCategoryForm({ id: "", name: "", image: null });
       setIsEditCategoryDialogOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to update category");
       // Don't reset form or close dialog on error - keep user's input
     }
@@ -283,7 +283,7 @@ export default function GalleryPage() {
       // Only reset form and close dialog on success
       setSubCategoryForm({ name: "", categoryId: "", image: null });
       setIsSubCategoryDialogOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to create subcategory");
       // Don't reset form or close dialog on error - keep user's input
     }
@@ -328,7 +328,7 @@ export default function GalleryPage() {
       // Only reset form and close dialog on success
       setEditSubCategoryForm({ id: "", name: "", categoryId: "", image: null });
       setIsEditSubCategoryDialogOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to update subcategory");
       // Don't reset form or close dialog on error - keep user's input
     }
@@ -358,7 +358,7 @@ export default function GalleryPage() {
       // Only reset form and close dialog on success
       setImageForm({ image: null, subCategoryId: "", altText: "" });
       setIsImageDialogOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to upload image");
       // Don't reset form or close dialog on error - keep user's input
     }

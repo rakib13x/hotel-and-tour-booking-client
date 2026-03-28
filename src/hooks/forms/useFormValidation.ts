@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export interface FormField {
   name: string;
-  value: any;
+  value: unknown;
   error?: string;
   required?: boolean;
   minLength?: number;
@@ -32,46 +32,36 @@ export function useFormValidation(initialFields: Record<string, FormField>) {
   });
 
   const validateField = (field: FormField): string | undefined => {
-    if (
-      field.required &&
-      (!field.value || field.value.toString().trim() === "")
-    ) {
+    const valueStr =
+      field.value !== null && field.value !== undefined
+        ? String(field.value)
+        : "";
+
+    if (field.required && valueStr.trim() === "") {
       return `${field.name} is required`;
     }
 
-    if (
-      field.minLength &&
-      field.value &&
-      field.value.length < field.minLength
-    ) {
+    if (field.minLength && valueStr.length < field.minLength) {
       return `${field.name} must be at least ${field.minLength} characters`;
     }
 
-    if (
-      field.maxLength &&
-      field.value &&
-      field.value.length > field.maxLength
-    ) {
+    if (field.maxLength && valueStr.length > field.maxLength) {
       return `${field.name} must be no more than ${field.maxLength} characters`;
     }
 
-    if (
-      field.type === "email" &&
-      field.value &&
-      !/\S+@\S+\.\S+/.test(field.value)
-    ) {
+    if (field.type === "email" && valueStr && !/\S+@\S+\.\S+/.test(valueStr)) {
       return `${field.name} must be a valid email address`;
     }
 
     if (
       field.type === "url" &&
-      field.value &&
-      !/^https?:\/\/.+/.test(field.value)
+      valueStr &&
+      !/^https?:\/\/.+/.test(valueStr)
     ) {
       return `${field.name} must be a valid URL`;
     }
 
-    if (field.pattern && field.value && !field.pattern.test(field.value)) {
+    if (field.pattern && valueStr && !field.pattern.test(valueStr)) {
       return `${field.name} format is invalid`;
     }
 
@@ -99,7 +89,7 @@ export function useFormValidation(initialFields: Record<string, FormField>) {
     return isValid;
   };
 
-  const updateField = (name: string, value: any) => {
+  const updateField = (name: string, value: unknown) => {
     setState((prev) => ({
       ...prev,
       fields: {
@@ -108,7 +98,7 @@ export function useFormValidation(initialFields: Record<string, FormField>) {
           ...prev.fields[name],
           value,
           error: undefined,
-        } as any,
+        },
       },
       isDirty: true,
     }));

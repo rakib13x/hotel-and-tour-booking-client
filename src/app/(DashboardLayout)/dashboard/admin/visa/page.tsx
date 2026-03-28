@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import PageHeader from "@/components/admin/PageHeader";
@@ -101,11 +102,11 @@ const SearchableCountryDropdown = ({
   const countryOptions = countriesResponse?.data || [];
 
   const filteredCountries = countryOptions.filter((country) =>
-    country.name.toLowerCase().includes(searchValue.toLowerCase())
+    country.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const selectedCountry = countryOptions.find(
-    (country) => country._id === countryId || country.name === value
+    (country) => country._id === countryId || country.name === value,
   );
 
   return (
@@ -178,7 +179,7 @@ const VISA_TYPES = VISA_TYPES_ENUM;
 
 export default function VisaPage() {
   // RTK Query hooks
-  const { data: visasResponse, isLoading, error } = useGetAllVisasQuery();
+  const { data: visasResponse, isLoading, error } = useGetAllVisasQuery({});
   const [createVisa, { isLoading: isCreating }] = useCreateVisaMutation();
   const [updateVisa, { isLoading: isUpdating }] = useUpdateVisaMutation();
   const [deleteVisa, { isLoading: isDeleting }] = useDeleteVisaMutation();
@@ -234,7 +235,7 @@ export default function VisaPage() {
       visas.length > 0
         ? Math.round(
             visas.reduce((sum, v) => sum + (v.processingFee || 0), 0) /
-              visas.length
+              visas.length,
           )
         : 0,
   };
@@ -282,7 +283,7 @@ export default function VisaPage() {
         error?.data?.message ||
           (editingVisa
             ? "Failed to update visa information"
-            : "Failed to create visa information")
+            : "Failed to create visa information"),
       );
       // Don't reset form or close dialog on error - keep user's input
     }
@@ -322,9 +323,9 @@ export default function VisaPage() {
       toast.success("Visa information deleted successfully");
       setDeleteDialogOpen(false);
       setVisaToDelete(null);
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete visa information");
-      }
+    }
   };
 
   const handleDeleteCancel = () => {
@@ -537,8 +538,8 @@ export default function VisaPage() {
                                 setValue(
                                   "visaTypes",
                                   currentTypes.filter(
-                                    (type) => type !== visaType
-                                  )
+                                    (type) => type !== visaType,
+                                  ),
                                 );
                               }
                             }}
@@ -824,7 +825,7 @@ export default function VisaPage() {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
-                        }
+                        },
                       )}
                     </span>
                   </div>
@@ -837,7 +838,7 @@ export default function VisaPage() {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
-                        }
+                        },
                       )}
                     </span>
                   </div>

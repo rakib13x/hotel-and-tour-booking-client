@@ -67,7 +67,7 @@ export default function AuthorizationPage() {
       toast.success("Authorization deleted successfully");
       setDeleteConfirmOpen(false);
       setAuthorizationToDelete(null);
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete authorization");
       }
   };

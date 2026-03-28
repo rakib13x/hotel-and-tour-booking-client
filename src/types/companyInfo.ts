@@ -1,3 +1,9 @@
+export interface OfficeHour {
+  day: string;
+  open: string;
+  close: string;
+}
+
 export interface ICompanyInfo {
   _id: string;
   companyName?: string;
@@ -26,6 +32,7 @@ export interface ICompanyInfo {
     | "Friday"
     | "Saturday"
     | "Sunday";
+  officeHours?: OfficeHour[];
   createdAt: string;
   updatedAt: string;
 }

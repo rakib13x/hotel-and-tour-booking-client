@@ -1,6 +1,8 @@
 import { ICategory, IImage, ISubCategory } from "@/types/schemas";
 import { baseApi } from "../../baseApi";
 
+type GalleryQueryParams = Record<string, string | number | boolean | undefined>;
+
 // Category API endpoints
 export const galleryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,7 +17,7 @@ export const galleryApi = baseApi.injectEndpoints({
           totalPages: number;
         };
       },
-      any
+      GalleryQueryParams
     >({
       query: (params) => ({
         url: "/gallery/categories",
@@ -47,19 +49,20 @@ export const galleryApi = baseApi.injectEndpoints({
       invalidatesTags: ["galleryCategories"],
     }),
 
-    updateGalleryCategory: builder.mutation<ICategory, { id: string; data: FormData }>(
-      {
-        query: ({ id, data }) => ({
-          url: `/gallery/categories/${id}`,
-          method: "PATCH",
-          body: data,
-        }),
-        invalidatesTags: (_, __, { id }) => [
-          { type: "galleryCategories", id },
-          "galleryCategories",
-        ],
-      }
-    ),
+    updateGalleryCategory: builder.mutation<
+      ICategory,
+      { id: string; data: FormData }
+    >({
+      query: ({ id, data }) => ({
+        url: `/gallery/categories/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (_, __, { id }) => [
+        { type: "galleryCategories", id },
+        "galleryCategories",
+      ],
+    }),
 
     deleteGalleryCategory: builder.mutation<{ success: boolean }, string>({
       query: (id) => ({
@@ -80,7 +83,7 @@ export const galleryApi = baseApi.injectEndpoints({
           totalPages: number;
         };
       },
-      any
+      GalleryQueryParams
     >({
       query: (params) => ({
         url: "/gallery/subcategories",
@@ -148,7 +151,7 @@ export const galleryApi = baseApi.injectEndpoints({
           totalPages: number;
         };
       },
-      any
+      GalleryQueryParams
     >({
       query: (params) => ({
         url: "/gallery/images",

@@ -1,14 +1,16 @@
 "use client"
 import { useCompanyInfo } from "@/hooks/useCompanyInfo";
 import { CompanyData, SocialIcon } from "@/types/company";
+import { TUser } from "@/types";
 import { Clock, PhoneCall } from "lucide-react";
 
 interface TopNavbarProps {
   isLoggedIn?: boolean;
+  user?: TUser | null;
   userType?: "user" | "moderator" | "admin" | "super_admin";
   isScrolled?: boolean;
   onDropdownToggle?: (isOpen: boolean) => void;
-  companyData?: CompanyData
+  companyData?: any;
 }
 
 

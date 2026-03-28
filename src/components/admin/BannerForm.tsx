@@ -113,7 +113,7 @@ export default function BannerForm({ banner, onCancel }: BannerFormProps) {
       }
 
       onCancel();
-    } catch (error) {
+    } catch {
       toast.error(
         banner ? "Failed to update banner" : "Failed to create banner"
       );

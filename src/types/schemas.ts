@@ -88,11 +88,12 @@ export interface IAuthorization {
 }
 
 export interface ICountryVisa {
-  _id?: string;
+  _id: string;
+  country: { _id: string; name: string } | string; // populated object OR just an ID string
   countryName: string;
-  visaTypes: ("tourist visa" | "sticker visa" | "e-visa")[]; // Backend enum types
+  visaTypes: ("tourist visa" | "sticker visa" | "e-visa")[];
   processingFee?: number;
-  required_document?: string; // rich text content
+  required_document?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

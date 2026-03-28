@@ -64,7 +64,7 @@ export default function CreateCategoryForm(): React.ReactElement {
 
     setIsCreating(true);
     try {
-      const result = await createCategory({ name: data.name.trim() }).unwrap();
+      await createCategory({ name: data.name.trim() }).unwrap();
       toast.success("Category created successfully");
       router.push("/dashboard/admin/blogs/categories");
     } catch (error: any) {

@@ -1,3 +1,6 @@
+import { TUser } from ".";
+import { ICompanyInfo } from "./companyInfo";
+
 export interface CompanyData {
   // Backend schema required fields
   companyName?: string;
@@ -47,10 +50,11 @@ export interface OfficeHour {
 }
 
 export interface TopNavbarProps {
-  isLoggedIn?: boolean;
-  userType?: "user" | "moderator" | "admin" | "super_admin";
-  isScrolled?: boolean;
-  companyData?: any; // Using any to match ICompanyInfo from API
+  companyData: ICompanyInfo;
+  isLoggedIn: boolean;
+  user: TUser | null; // ✅ ADD THIS
+  userType: "admin" | "user" | "super_admin";
+  isScrolled: boolean;
 }
 
 export interface NavbarProps {

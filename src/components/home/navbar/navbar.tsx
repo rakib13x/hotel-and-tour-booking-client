@@ -16,7 +16,7 @@ export default function Navbar({ isLoggedIn: propIsLoggedIn }: NavbarProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Get company info using custom hook
-  const { companyInfo: companyData, } = useCompanyInfo();
+  const { companyInfo: companyData } = useCompanyInfo();
 
   useEffect(() => {
     const handleScroll = () => {

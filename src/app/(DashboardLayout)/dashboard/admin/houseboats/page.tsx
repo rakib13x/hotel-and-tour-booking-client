@@ -201,7 +201,7 @@ const HouseboatPage = (): React.ReactElement => {
       };
 
       toast.success("Houseboat created successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to create houseboat");
     }
   };

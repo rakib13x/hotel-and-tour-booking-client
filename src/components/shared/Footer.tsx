@@ -1,5 +1,6 @@
 import { useCompanyInfo } from "@/hooks/useCompanyInfo";
 import { useGetCompanyImagesQuery } from "@/redux/api/features/companyImages/companyImagesApi";
+import { ICompanyImages } from "@/types/companyImages";
 import {
   CreditCard,
   Facebook,
@@ -37,11 +38,15 @@ const Footer = ({}: FooterProps) => {
 
   // Extract all affiliation and payment images from all entries
   const affiliations = Array.isArray(companyImagesResponse?.data)
-    ? companyImagesResponse.data.flatMap((item: any) => item.affiliation || [])
+    ? companyImagesResponse.data.flatMap(
+        (item: ICompanyImages) => item.affiliation || []
+      )
     : companyImagesResponse?.data?.affiliation || [];
 
   const paymentMethods = Array.isArray(companyImagesResponse?.data)
-    ? companyImagesResponse.data.flatMap((item: any) => item.paymentAccept || [])
+    ? companyImagesResponse.data.flatMap(
+        (item: ICompanyImages) => item.paymentAccept || []
+      )
     : companyImagesResponse?.data?.paymentAccept || [];
 
   // Dynamic contact info from company data

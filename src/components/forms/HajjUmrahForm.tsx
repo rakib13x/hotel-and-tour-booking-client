@@ -45,7 +45,7 @@ export default function HajjUmrahForm() {
     try {
       await submitQuery(data, "hajj_umrah");
       reset();
-    } catch (error) {
+    } catch {
       }
   };
 

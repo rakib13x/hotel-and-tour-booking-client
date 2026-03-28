@@ -215,7 +215,7 @@ export default function QueriesPage() {
       toast.success("Query submitted successfully");
       setNewQuery({ subject: "", message: "", formType: "general" });
       setShowNewQueryForm(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to submit query");
     }
   };

@@ -38,6 +38,11 @@ interface BlogsClientProps {
   setCategoryFilter: (value: string) => void;
 }
 
+interface BlogCategory {
+  _id: string;
+  name: string;
+}
+
 // Separate Search and Category component
 export function SearchAndCategory({
   searchTerm,
@@ -46,9 +51,9 @@ export function SearchAndCategory({
   setCategoryFilter,
 }: BlogsClientProps) {
   const { data: categoriesData } = useGetBlogCategoriesQuery({});
-  const categories = Array.isArray(categoriesData?.data)
+  const categories = (Array.isArray(categoriesData?.data)
     ? categoriesData.data
-    : [];
+    : []) as BlogCategory[];
 
   return (
     <>
@@ -69,7 +74,7 @@ export function SearchAndCategory({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Categories</SelectItem>
-          {categories.map((category: any) => (
+          {categories.map((category: BlogCategory) => (
             <SelectItem key={category._id} value={category.name}>
               {category.name}
             </SelectItem>
@@ -147,8 +152,12 @@ export default function BlogsClient({
         status,
       }).unwrap();
       toast.success(`Blog marked as ${status}`);
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to update blog status");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to update blog status"
+          : "Failed to update blog status";
+      toast.error(errorMessage);
     }
   };
 
@@ -156,8 +165,12 @@ export default function BlogsClient({
     try {
       await deleteBlog(id).unwrap();
       toast.success("Blog deleted successfully");
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to delete blog");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to delete blog"
+          : "Failed to delete blog";
+      toast.error(errorMessage);
     }
   };
 

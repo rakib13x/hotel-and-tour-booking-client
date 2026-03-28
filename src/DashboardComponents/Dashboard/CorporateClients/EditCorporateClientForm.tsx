@@ -15,7 +15,7 @@ import { z } from "zod";
 
 const corporateClientSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  logo: z.any().optional(),
+  logo: z.union([z.instanceof(File), z.string()]).optional().nullable(),
 });
 
 type CorporateClientFormData = z.infer<typeof corporateClientSchema>;
@@ -49,8 +49,12 @@ export default function EditCorporateClientForm({
       await updateClient({ id: clientId, formData }).unwrap();
       toast.success("Corporate client updated successfully");
       router.push("/dashboard/admin/corporate-clients");
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to update corporate client");
+    } catch (err: unknown) {
+      const errorMessage =
+        err && typeof err === "object" && "data" in err
+          ? (err as any).data?.message || "Failed to update corporate client"
+          : "Failed to update corporate client";
+      toast.error(errorMessage);
     }
   };
 

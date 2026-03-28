@@ -18,7 +18,7 @@ async function fetchBlogDetails(slug: string): Promise<BlogType | null> {
 
     const data = await response.json();
     return data.data || null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
